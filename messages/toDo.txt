@@ -1,1 +1,7 @@
-- Windows: add VSCode Rest client
+(
+    - Quando una classe deve essere 'Injettata', passi:
+        1. Importa nella classe "import { Injectable } from '@nestjs/common';"
+        2. Annota la classe con: "@Injectable()"
+        3. Aggiungi al '.modules' le classi injectabili
+)
+
