@@ -6,3 +6,21 @@ Content-Type: application/json
     "email": "asd@asd.com",
     "password": "asdfg"
 }
+
+### Find a particular User by id
+GET http://localhost:3000/auth/4
+
+### Find a Users by yours email (QUERY STRING)
+GET http://localhost:3000/auth?email=asd@asd.com
+
+### Remove a User by id
+DELETE http://localhost:3000/auth/423
+
+### Update a user
+PATCH http://localhost:3000/auth/234234
+Content-Type: application/json
+
+{
+    "email": "aabb@aaabbb.com",
+    "password": "newPassword"
+}

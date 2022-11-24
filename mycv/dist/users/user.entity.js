@@ -18,7 +18,7 @@ let User = class User {
     logUpdate() {
         console.log('Updated User with id', this.id);
     }
-    logremove() {
+    logRemove() {
         console.log('Removed User with id', this.id);
     }
 };
@@ -51,7 +51,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], User.prototype, "logremove", null);
+], User.prototype, "logRemove", null);
 User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

@@ -4,5 +4,5 @@ export declare class User {
     password: string;
     logInsert(): void;
     logUpdate(): void;
-    logremove(): void;
+    logRemove(): void;
 }
