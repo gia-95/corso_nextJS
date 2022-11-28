@@ -3,12 +3,21 @@ POST  http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "asd@asd.com",
-    "password": "asdfg"
+    "email": "gianluca@gianluca.com",
+    "password": "gianlucaPWD"
+}
+
+### Sign in 
+POST  http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "gianluca@gianluca.com",
+    "password": "gianlucaPWD"
 }
 
 ### Find a particular User by id
-GET http://localhost:3000/auth/4
+GET http://localhost:3000/auth/2
 
 ### Find a Users by yours email (QUERY STRING)
 GET http://localhost:3000/auth?email=asd@asd.com
@@ -17,7 +26,7 @@ GET http://localhost:3000/auth?email=asd@asd.com
 DELETE http://localhost:3000/auth/423
 
 ### Update a user
-PATCH http://localhost:3000/auth/234234
+PATCH http://localhost:3000/auth/2
 Content-Type: application/json
 
 {
