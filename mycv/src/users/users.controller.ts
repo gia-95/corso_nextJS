@@ -10,6 +10,7 @@ import {
   NotFoundException,
   UseInterceptors,
   ClassSerializerInterceptor,
+  Session,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateuserDto } from './dtos/update-user.dto';
@@ -31,12 +32,12 @@ export class UsersController {
   ) {}
 
   @Post('signup')
-  createUser(@Body() body: CreateUserDto) {
+  async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     return this.authService.signup(body.email, body.password);
   }
 
   @Post('/signin')
-  signin(@Body() body: CreateUserDto) {
+  async signin(@Body() body: CreateUserDto, @Session() session: any) {
     return this.authService.signin(body.email, body.password);
   }
 

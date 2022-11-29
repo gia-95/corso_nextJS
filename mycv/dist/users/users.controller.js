@@ -25,6 +25,12 @@ let UsersController = class UsersController {
         this.usersService = usersService;
         this.authService = authService;
     }
+    setColor(color, session) {
+        session.color = color;
+    }
+    getColor(session) {
+        return session.color;
+    }
     createUser(body) {
         return this.authService.signup(body.email, body.password);
     }
@@ -48,6 +54,21 @@ let UsersController = class UsersController {
         return this.usersService.update(parseInt(id), body);
     }
 };
+__decorate([
+    (0, common_1.Get)('/colors/:color'),
+    __param(0, (0, common_1.Param)('color')),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "setColor", null);
+__decorate([
+    (0, common_1.Get)('/colors'),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "getColor", null);
 __decorate([
     (0, common_1.Post)('signup'),
     __param(0, (0, common_1.Body)()),
