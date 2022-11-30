@@ -20,6 +20,9 @@ const users_service_1 = require("./users.service");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const user_dto_1 = require("./dtos/user.dto");
 const auth_service_1 = require("./auth.service");
+const user_entity_1 = require("./user.entity");
+const current_user_decorators_1 = require("./decorators/current-user.decorators");
+const auth_guards_1 = require("../guards/auth.guards");
 let UsersController = class UsersController {
     constructor(usersService, authService) {
         this.usersService = usersService;
@@ -38,8 +41,8 @@ let UsersController = class UsersController {
     SignOut(session) {
         session.userId = null;
     }
-    WhoAmI(session) {
-        return this.usersService.findOne(session.userId);
+    WhoAmIn(user) {
+        return user;
     }
     async findUser(id) {
         const user = await this.usersService.findOne(parseInt(id));
@@ -83,11 +86,12 @@ __decorate([
 ], UsersController.prototype, "SignOut", null);
 __decorate([
     (0, common_1.Get)('/whoami'),
-    __param(0, (0, common_1.Session)()),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    __param(0, (0, current_user_decorators_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", void 0)
-], UsersController.prototype, "WhoAmI", null);
+], UsersController.prototype, "WhoAmIn", null);
 __decorate([
     (0, common_1.Get)('/:id'),
     __param(0, (0, common_1.Param)('id')),

@@ -11,6 +11,7 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   Session,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateuserDto } from './dtos/update-user.dto';
@@ -21,9 +22,14 @@ import {
 } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
+import { User } from './user.entity';
+import { CurrentUser } from './decorators/current-user.decorators';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+import { AuthGuard } from 'src/guards/auth.guards';
 
 @Controller('auth')
 @Serialize(UserDto) // ... puoi anche metterlo sui singoli emtodi che ti serovno (customizza la response)
+// @UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     // per Dip Inj
@@ -50,9 +56,18 @@ export class UsersController {
     session.userId = null;
   }
 
+  // @Get('/whoami')
+  // WhoAmI(@Session() session: any) {
+  //   return this.usersService.findOne(session.userId);
+  // }
+
   @Get('/whoami')
-  WhoAmI(@Session() session: any) {
-    return this.usersService.findOne(session.userId);
+  @UseGuards(AuthGuard)
+  WhoAmIn(@CurrentUser() user: User) {
+    // Nota: Se non avessi il decorator costurito da te, ma solo l'interceptor,
+    //        potevi usare in decorator '@Request() req: Request', e da req.currentUser (inserito dall'interceptor), avevi stesso risultato
+    //      (così ovviamente è più pulito, si capisce meglio)
+    return user;
   }
 
   // @UseInterceptors(new SerializeInterceptor(UserDto))  ... 'vecchia maniera' (sotto)
