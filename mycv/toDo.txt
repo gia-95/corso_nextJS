@@ -1,2 +1,0 @@
-- sqlite (extencion)
-    CRTL+SHIFT+P: 'sqlite' -> open Database
