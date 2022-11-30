@@ -13,6 +13,10 @@ export class UsersService {
   }
 
   findOne(id: number) {
+    if (!id) {
+      // Perche il 'findOneBy' con 'null' torna il primo che trova
+      return null;
+    }
     return this.repo.findOneBy({ id });
   }
 
@@ -36,7 +40,7 @@ export class UsersService {
     // Ci sono sia 'remove(Entity)' sia 'delete({id})', però delete non fa gli Hooks
     const user = await this.findOne(id);
     if (!user) {
-        throw new NotFoundException('User not found.');
+      throw new NotFoundException('User not found.');
     }
     return this.repo.remove(user);
   }

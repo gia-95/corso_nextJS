@@ -33,12 +33,26 @@ export class UsersController {
 
   @Post('signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
-    return this.authService.signup(body.email, body.password);
+    const user = this.authService.signup(body.email, body.password);
+    session.userId = (await user).id;
+    return user;
   }
 
   @Post('/signin')
   async signin(@Body() body: CreateUserDto, @Session() session: any) {
-    return this.authService.signin(body.email, body.password);
+    const user = this.authService.signin(body.email, body.password);
+    session.userId = (await user).id;
+    return user;
+  }
+
+  @Post('/signout')
+  SignOut(@Session() session: any) {
+    session.userId = null;
+  }
+
+  @Get('/whoami')
+  WhoAmI(@Session() session: any) {
+    return this.usersService.findOne(session.userId);
   }
 
   // @UseInterceptors(new SerializeInterceptor(UserDto))  ... 'vecchia maniera' (sotto)
